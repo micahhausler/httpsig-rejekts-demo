@@ -11,14 +11,16 @@ import (
 	"github.com/common-fate/httpsig"
 	"github.com/common-fate/httpsig/inmemory"
 	"github.com/common-fate/httpsig/sigparams"
-	"github.com/micahhausler/rejekts-eu-2025/attributes"
 	"github.com/micahhausler/rejekts-eu-2025/cmd"
-	"github.com/micahhausler/rejekts-eu-2025/gh"
+	"github.com/micahhausler/rejekts-eu-2025/pkg/attributes"
+	"github.com/micahhausler/rejekts-eu-2025/pkg/gh"
 	flag "github.com/spf13/pflag"
 )
 
 func main() {
 	port := flag.Int("port", 8080, "port to listen on")
+	authority := flag.String("authority", "localhost:8080", "authority to listen on")
+	scheme := flag.String("scheme", "https", "scheme to listen on")
 	logLevel := cmd.LevelFlag(slog.LevelInfo)
 	flag.Var(&logLevel, "log-level", "log level")
 	flag.Parse()
@@ -27,7 +29,7 @@ func main() {
 		AddSource: slog.Level(logLevel) == slog.LevelDebug,
 	})))
 
-	addr := fmt.Sprintf("localhost:%d", *port)
+	addr := fmt.Sprintf("0.0.0.0:%d", *port)
 
 	headerName := "X-GitHub-Username"
 	keyDir, err := gh.NewDynamicGitHubKeyDirectory(headerName)
@@ -42,8 +44,8 @@ func main() {
 		NonceStorage: inmemory.NewNonceStorage(),
 		KeyDirectory: keyDir,
 		Tag:          "foo",
-		Scheme:       "http",
-		Authority:    addr,
+		Scheme:       *scheme,
+		Authority:    *authority,
 		OnValidationError: func(ctx context.Context, err error) {
 			slog.Error("validation error", "error", err)
 		},

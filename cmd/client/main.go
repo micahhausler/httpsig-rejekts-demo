@@ -13,14 +13,14 @@ import (
 	"github.com/aoliveti/curling"
 	"github.com/common-fate/httpsig/signer"
 	"github.com/micahhausler/rejekts-eu-2025/cmd"
-	"github.com/micahhausler/rejekts-eu-2025/gh"
-	"github.com/micahhausler/rejekts-eu-2025/transport"
+	"github.com/micahhausler/rejekts-eu-2025/pkg/gh"
+	"github.com/micahhausler/rejekts-eu-2025/pkg/transport"
 )
 
 func main() {
 	keyFile := flag.String("key", "", "path to private key")
-	host := flag.String("host", "localhost", "host to connect to")
-	port := flag.Int("port", 8080, "port to connect to")
+	host := flag.String("host", "rejekts.dev.micahhausler.com", "host to connect to")
+	// port := flag.Int("port", 443, "port to connect to")
 	username := flag.String("username", "", "GitHub username to authenticate as")
 	execute := flag.Bool("execute", false, "execute the request")
 	logLevel := cmd.LevelFlag(slog.LevelInfo)
@@ -32,7 +32,7 @@ func main() {
 		AddSource: slog.Level(logLevel) == slog.LevelDebug,
 	})))
 
-	addr := fmt.Sprintf("http://%s:%d", *host, *port)
+	addr := fmt.Sprintf("https://%s", *host)
 
 	keyData, err := os.ReadFile(*keyFile)
 	if err != nil {
