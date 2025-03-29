@@ -1,4 +1,4 @@
-module github.com/micahhausler/rejekts-eu-2025
+module github.com/micahhausler/httpsig-rejekts-demo
 
 go 1.24.0
 

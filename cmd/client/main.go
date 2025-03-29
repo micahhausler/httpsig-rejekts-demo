@@ -12,9 +12,9 @@ import (
 
 	"github.com/aoliveti/curling"
 	"github.com/common-fate/httpsig/signer"
-	"github.com/micahhausler/rejekts-eu-2025/cmd"
-	"github.com/micahhausler/rejekts-eu-2025/pkg/gh"
-	"github.com/micahhausler/rejekts-eu-2025/pkg/transport"
+	"github.com/micahhausler/httpsig-rejekts-demo/cmd"
+	"github.com/micahhausler/httpsig-rejekts-demo/pkg/gh"
+	"github.com/micahhausler/httpsig-rejekts-demo/pkg/transport"
 )
 
 func main() {

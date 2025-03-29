@@ -13,7 +13,7 @@ import (
 	"github.com/common-fate/httpsig/alg_ed25519"
 	"github.com/common-fate/httpsig/alg_rsa"
 	"github.com/common-fate/httpsig/verifier"
-	"github.com/micahhausler/rejekts-eu-2025/pkg/attributes"
+	"github.com/micahhausler/httpsig-rejekts-demo/pkg/attributes"
 	"golang.org/x/crypto/ssh"
 )
 

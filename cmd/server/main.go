@@ -11,9 +11,9 @@ import (
 	"github.com/common-fate/httpsig"
 	"github.com/common-fate/httpsig/inmemory"
 	"github.com/common-fate/httpsig/sigparams"
-	"github.com/micahhausler/rejekts-eu-2025/cmd"
-	"github.com/micahhausler/rejekts-eu-2025/pkg/attributes"
-	"github.com/micahhausler/rejekts-eu-2025/pkg/gh"
+	"github.com/micahhausler/httpsig-rejekts-demo/cmd"
+	"github.com/micahhausler/httpsig-rejekts-demo/pkg/attributes"
+	"github.com/micahhausler/httpsig-rejekts-demo/pkg/gh"
 	flag "github.com/spf13/pflag"
 )
 

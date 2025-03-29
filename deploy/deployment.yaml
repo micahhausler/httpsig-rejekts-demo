@@ -13,7 +13,7 @@ spec:
     metadata:
       labels:
         app: rejekts-server
-        version: "3"
+        version: "4"
     spec:
       containers:
       - name: rejekts-server
