@@ -13,10 +13,12 @@ spec:
     metadata:
       labels:
         app: rejekts-server
+        version: "3"
     spec:
       containers:
       - name: rejekts-server
         image: 125843596666.dkr.ecr.us-west-2.amazonaws.com/rejekts/httpsig-server:latest
+        imagePullPolicy: Always
         args:
         - --authority
         - rejekts.dev.micahhausler.com
@@ -24,6 +26,23 @@ spec:
         - https
         ports:
         - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          timeoutSeconds: 5
+          failureThreshold: 3
         resources:
           requests:
             cpu: 100m

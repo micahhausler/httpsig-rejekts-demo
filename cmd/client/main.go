@@ -32,7 +32,7 @@ func main() {
 		AddSource: slog.Level(logLevel) == slog.LevelDebug,
 	})))
 
-	addr := fmt.Sprintf("https://%s", *host)
+	addr := fmt.Sprintf("https://%s/hello", *host)
 
 	keyData, err := os.ReadFile(*keyFile)
 	if err != nil {

@@ -65,8 +65,11 @@ func main() {
 			slog.Debug("string to sign", "string", stringToSign)
 		},
 	})
+	mux.Handle("/healthz", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	}))
 
-	mux.Handle("/", keyDir.KeyFetcher(verifier(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	mux.Handle("/hello", keyDir.KeyFetcher(verifier(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		rawAttribute := httpsig.AttributesFromContext(r.Context())
 		if rawAttribute == nil {
 			w.WriteHeader(http.StatusOK)
