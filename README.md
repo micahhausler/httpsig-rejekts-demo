@@ -28,10 +28,15 @@ httpsig-rejekts-demo --key $GH_KEY --username $GH_USERNAME
 
 Will emit something like 
 ```
-curl -X 'POST' 'https://rejekts.dev.micahhausler.com/hello' -H 'Content-Type: application/json' -H 'Signature-Input: sig1=("@method" "@target-uri" "content-type" "x-github-username");keyid="7829c799f966275fa9a01ae111e6dd249522611c8df502fcaed17dca039cf1aeeeb2e3bc95e23f4f3326195a14a55aeadbd75f761c501dbb6cb5a3874756ff88";alg="ecdsa-p256-sha256";tag="foo";nonce="Zfy0dMDu62h-6EUKSKUGrXLGihlAp-O-2GpsrCSzaWU=";created=1743327105' -H 'Signature: sig1=:kmG5zcLdDKrUUJRWBqxmF2323eh2K8n9U8yP6pWTblxy4xRcj8zrlPyklO5C/IcQp1EiGPSjYjhmeRi0eCrBZg==:' -H 'X-Github-Username: micahhausler'
+curl -X 'POST' \
+    'https://rejekts.dev.micahhausler.com/hello' 
+    -H 'Content-Type: application/json' \
+    -H 'Signature-Input: sig1=("@method" "@target-uri" "content-type" "x-github-username");keyid="7829c799f966275fa9a01ae111e6dd249522611c8df502fcaed17dca039cf1aeeeb2e3bc95e23f4f3326195a14a55aeadbd75f761c501dbb6cb5a3874756ff88";alg="ecdsa-p256-sha256";tag="foo";nonce="Zfy0dMDu62h-6EUKSKUGrXLGihlAp-O-2GpsrCSzaWU=";created=1743327105' \
+    -H 'Signature: sig1=:kmG5zcLdDKrUUJRWBqxmF2323eh2K8n9U8yP6pWTblxy4xRcj8zrlPyklO5C/IcQp1EiGPSjYjhmeRi0eCrBZg==:' \
+    -H 'X-Github-Username: micahhausler'
 ```
 
-The server will then lookup the signing keys (`https://github.com/<username>.keys`) and validate the request is signed with one of that user's keys
+Once you execute the `curl` command or add `--execute` to the client, the server will then lookup the signing keys (`https://github.com/<username>.keys`) and validate the request is signed with one of that user's keys.
 
 ```json
 {"message": "hello, micahhausler!"}
