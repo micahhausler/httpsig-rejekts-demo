@@ -20,8 +20,9 @@ import (
 func main() {
 	keyFile := flag.String("key", "", "path to private key")
 	host := flag.String("host", "rejekts.dev.micahhausler.com", "host to connect to")
-	// port := flag.Int("port", 443, "port to connect to")
 	username := flag.String("username", "", "GitHub username to authenticate as")
+	scheme := flag.String("scheme", "https", "scheme to connect to")
+	port := flag.Int("port", 443, "port to connect to")
 	execute := flag.Bool("execute", false, "execute the request")
 	logLevel := cmd.LevelFlag(slog.LevelInfo)
 	flag.Var(&logLevel, "log-level", "log level")
@@ -32,7 +33,11 @@ func main() {
 		AddSource: slog.Level(logLevel) == slog.LevelDebug,
 	})))
 
-	addr := fmt.Sprintf("https://%s/hello", *host)
+	portStr := ""
+	if *port != 443 {
+		portStr = fmt.Sprintf(":%d", *port)
+	}
+	addr := fmt.Sprintf("%s://%s%s/hello", *scheme, *host, portStr)
 
 	keyData, err := os.ReadFile(*keyFile)
 	if err != nil {

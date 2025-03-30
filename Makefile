@@ -15,12 +15,12 @@ bin/server:
 	go build -o bin/server cmd/server/main.go
 
 bin/client:
-	go build -o bin/client cmd/client/main.go
+	go build -o bin/client main.go
 
 .PHONY: build
 build: bin/server bin/client
 
-SERVER_ARGS := --log-level info
+SERVER_ARGS := --log-level info --scheme http
 
 .PHONY: server
 server: bin/server
@@ -29,11 +29,13 @@ server: bin/server
 GH_KEY ?= ~/.ssh/id_ecdsa
 GH_USERNAME ?= $(shell whoami)
 
+CLIENT_ARGS ?= 
+
 .PHONY: client
 client: bin/client
 	echo "Set GH_KEY to the path of your private key registered with GitHub"
 	echo "Set GH_USERNAME to your GitHub username"
-	./bin/client --key $(GH_KEY) --username $(GH_USERNAME)
+	./bin/client --key $(GH_KEY) --username $(GH_USERNAME) $(CLIENT_ARGS)
 
 # Docker build variables
 DOCKER_IMAGE ?= 125843596666.dkr.ecr.us-west-2.amazonaws.com/rejekts/httpsig-server
